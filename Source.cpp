@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include "functions.h"
-
+#include "header.h"
 using namespace std;
 
 
@@ -12,32 +12,49 @@ using namespace std;
 void greet();
 void display_misses(int misses);
 void display_status(vector<char> incorrect, string answer);
-void end_game(string answer, string codeword);
-void backbone(string answer, string codeword, vector<char> incorrect, bool guess, int misses, int z, char x);
+
+string library(string &codeword, int characters);
 
 
 int main()
 {
-    int n, z;
+    int n, z, characters;
     greet();
     cout << "please enter number of players (1 or 2)" << endl;
     cin >> n;
     if (n == 1) {
-        string codeword = "codingcleverly";
         
         int misses = 0;
-        vector<char> incorrect; 
+        vector<char> incorrect;
         bool guess = false;
         char  x = '_';
+        string codeword;
+
+        cout << "How many characters would you like: ";
+        cin >> characters;
+        
+        library(codeword, characters);
+        
         z = 0;
         for (int i = 0; codeword[i]; i++)
         {
             z++;
         }
         string answer(z, x);
+        char letter;
+        string answer1;
         
-        backbone(answer, codeword, incorrect, guess, misses, z, x);
-        end_game(answer, codeword);
+        backbone(answer1, answer, codeword, incorrect, guess, misses, z, x);
+
+        if (answer1 == codeword)
+        {
+            cout << "Hooray! You saved the person from being hanged and earned a medal of honor!\n";
+            cout << "Congratulations!\n";
+        }
+        else
+        {
+            cout << "On no! The man is hanged!\n";
+        }
     }
     else
     {
@@ -62,9 +79,19 @@ int main()
             z++;
         }
         string answer(z, x);
-        backbone(answer, codeword, incorrect, guess, misses, z, x);
-        
-        end_game(answer, codeword);
+        char letter;
+        string answer1;
+       
+        backbone(answer1, answer, codeword, incorrect, guess, misses, z, x);
+        if ( answer1 == codeword)
+        {
+            cout << "Hooray! You saved the person from being hanged and earned a medal of honor!\n";
+            cout << "Congratulations!\n";
+        }
+        else
+        {
+            cout << "On no! The man is hanged!\n";
+        }
     }
     return 0;
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 void greet()
@@ -105,19 +106,9 @@ void display_status(vector<char> incorrect, string answer)
 }
 
 
-void end_game(string answer, string codeword)
-{
-    if (answer == codeword)
-    {
-        cout << "Hooray! You saved the person from being hanged and earned a medal of honor!\n";
-        cout << "Congratulations!\n";
-    }
-    else
-    {
-        cout << "On no! The man is hanged!\n";
-    }
-}
-void backbone(string answer, string codeword, vector<char> incorrect, bool guess, int misses, int z, char x)
+
+
+string backbone(string &answer1,string answer, string codeword, vector<char> incorrect, bool guess, int misses, int z, char x)
 {
     char letter;
     while (answer!=codeword && misses < 7)
@@ -149,5 +140,8 @@ void backbone(string answer, string codeword, vector<char> incorrect, bool guess
         }
         guess = false;
     }
+    answer1 = answer;
+    return answer1;
+
 
 }
